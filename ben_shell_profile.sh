@@ -1,5 +1,7 @@
 ## Use git completion
-source ~/.git-completion.sh
+if [ -e ~/.git-completion.sh ] ; then
+  source ~/.git-completion.sh
+fi
 
 function rot13 {
     args={"$@"}
@@ -20,8 +22,11 @@ alias b='(cd ..; make)'
 alias m='make'
 alias mm='make'
 alias make='time make -j2'
-alias open='xdg-open'
 
+which xdg-open
+if [ $? -eq 0 ] ; then
+	alias open='xdg-open'
+fi
 export MAKE_FLAGS='-j 2 --quiet'
 
 
