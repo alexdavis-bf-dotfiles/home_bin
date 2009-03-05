@@ -23,7 +23,7 @@ alias m='make'
 alias mm='make'
 alias make='time make -j2'
 
-which xdg-open
+which xdg-open > /dev/null
 if [ $? -eq 0 ] ; then
 	alias open='xdg-open'
 fi
