@@ -1,0 +1,1 @@
+astyle --indent=spaces=4 --brackets=linux --indent-labels --pad=oper --one-line=keep-statements --convert-tabs --indent-preprocessor  ` find . -name "*.cpp" -print` ` find . -name "*.h" -print`
