@@ -1,3 +1,5 @@
+export PATH=$PATH:$HOME/bin:$HOME/github/home_bin
+
 ## Use git completion
 if [ -e ~/.git-completion.sh ] ; then
   source ~/.git-completion.sh
