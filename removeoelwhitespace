@@ -1,0 +1,5 @@
+#!/bin/sh
+file=$1
+cat $file | sed -e 's/\ *$//g' > ${file}_2
+mv ${file}_2 ${file}
+
