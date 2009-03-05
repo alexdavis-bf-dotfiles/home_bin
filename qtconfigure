@@ -1,3 +1,6 @@
 #!/bin/sh
-#./configure -no-framework -debug -fast -no-qt3support -DQT_NO_CAST_FROM_ASCII
-./configure -no-framework -fast -no-qt3support -prefix $PWD -debug-and-release
+if [ `uname` = "Linux" ] ; then
+    ./configure -fast -no-qt3support -prefix $PWD
+else
+    ./configure -no-framework -fast -no-qt3support -prefix $PWD -debug-and-release
+fi
