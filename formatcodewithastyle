@@ -1,1 +1,7 @@
-astyle --indent=spaces=4 --brackets=linux --indent-labels --pad=oper --one-line=keep-statements --convert-tabs --indent-preprocessor  ` find . -name "*.cpp" -print` ` find . -name "*.h" -print`
+#!/bin/sh
+#
+# Note that currently cannot control indentation of C++ initializer list and it is forced to 8 :(
+# See https://sourceforge.net/tracker/index.php?func=detail&aid=2479404&group_id=2319&atid=102319
+#
+astyle --indent=spaces=4 --brackets=linux --indent-labels --pad=oper --one-line=keep-statements --convert-tabs --indent-preprocessor ` find . -name "*.cpp" -print` ` find . -name "*.h" -print`
+# todo add --keep-one-line-blocks

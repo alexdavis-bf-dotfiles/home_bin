@@ -1,6 +1,0 @@
-#!/bin/sh
-file=$1
-echo $1
-indent -brs -bl -i4 -nut -sob -npsl -br -npcs $1
-echo "" >> $1
-
