@@ -55,11 +55,11 @@ function qs
         if [ $1 == "none" ] ; then
             export QTDIR=""
             export PATH="$PATHSAVE"
-            export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+            export LD_LIBRARY_PATH="$LDSAVE"
         else
             export QTDIR="$HOME/dev/$1"
             export PATH="$QTDIR/bin:$PATHSAVE"
-            export LD_LIBRARY_PATH="$QTDIR/lib:$LD_LIBRARY_PATH"
+            export LD_LIBRARY_PATH="$QTDIR/lib:$LDSAVE"
         fi
     fi
     echo "Using Qt: $QTVERSION";
