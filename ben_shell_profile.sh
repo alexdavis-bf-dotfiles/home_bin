@@ -38,9 +38,9 @@ export WEBKITDIR=$HOME/dev/webkit/
 
 
 # Google Chrome junk
-export CHROME_REVIEW_EMAIL=`rot13 vprsbk@tznvy.pbz`
-export CHROME=$HOME/dev/chromium_real
-export PATH=$CHROME/chromium_tools:$CHROME/git-cl/:$CHROME/linux:$PATH
+#export CHROME_REVIEW_EMAIL=`rot13 vprsbk@tznvy.pbz`
+#export CHROME=$HOME/dev/chromium_real
+#export PATH=$CHROME/chromium_tools:$CHROME/git-cl/:$CHROME/linux:$PATH
 
 
 ### Support for switching between multiple Qt repositories
