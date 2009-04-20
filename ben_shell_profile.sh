@@ -19,6 +19,7 @@ alias gd='git diff'
 alias gs='git status'
 alias gb='git branch'
 alias gl='git log'
+function gsc { git show $1 | source-highlight --src-lang=C --out-format=esc; }
 
 alias b='(cd ..; make)'
 alias m='make'
@@ -34,6 +35,7 @@ export MAKE_FLAGS='-j 2 --quiet'
 
 # WebKit
 export WEBKITDIR=$HOME/dev/webkit/
+export PATH=$PATH:$WEBKITDIR/WebKitTools/Scripts/
 #export DISABLE_NI_WARNING=1
 
 
