@@ -1,7 +1,14 @@
-#!/bin/sh
-git filter-branch --env-filter " \
-    export GIT_AUTHOR_NAME='Benjamin C Meyer'; \
-    export GIT_AUTHOR_EMAIL='ben@meyerhome.net'; \
-    export GIT_COMMITTER_NAME='Benjamin C Meyer'; \
-    export GIT_COMMITTER_EMAIL='ben@meyerhome.net'; \
-" HEAD
+#!/bin/bash -x
+git filter-branch --env-filter ' \
+if [ "${GIT_AUTHOR_NAME}" = "unknown" ] ; then  \
+    export GIT_AUTHOR_NAME="Benjamin C Meyer"; \
+    export GIT_AUTHOR_EMAIL="ben@meyerhome.net"; \
+    export GIT_COMMITTER_NAME="Benjamin C Meyer"; \
+    export GIT_COMMITTER_EMAIL="ben@meyerhome.net"; \
+fi ; \
+if [ "${GIT_AUTHOR_NAME}" = "Benjamin C Meyer" ] ; then  \
+    export GIT_AUTHOR_NAME="Benjamin C Meyer"; \
+    export GIT_AUTHOR_EMAIL="ben@meyerhome.net"; \
+    export GIT_COMMITTER_NAME="Benjamin C Meyer"; \
+    export GIT_COMMITTER_EMAIL="ben@meyerhome.net"; \
+fi ' HEAD
