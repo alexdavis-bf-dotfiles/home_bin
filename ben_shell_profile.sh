@@ -68,7 +68,7 @@ function qs
 }
 
 alias qcd='cd $QTDIR'
-qs qt-snapshot
+qs qt-icefox
 
 _complete_qs() {
     branches=`(cd $HOME/dev/;ls -d qt*/)`
