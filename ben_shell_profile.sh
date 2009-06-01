@@ -53,15 +53,16 @@ export LDSAVE="$LD_LIBRARY_PATH"
 function qs
 {
     if [ ! -z $1 ] ; then
-        export QTVERSION="$1"
-        if [ $1 == "none" ] ; then
+        if [[ ($1 == "none") || (! -d $HOME/dev/$1) ]] ; then
             export QTDIR=""
             export PATH="$PATHSAVE"
             export LD_LIBRARY_PATH="$LDSAVE"
+            export QTVERSION="none"
         else
             export QTDIR="$HOME/dev/$1"
             export PATH="$QTDIR/bin:$PATHSAVE"
             export LD_LIBRARY_PATH="$QTDIR/lib:$LDSAVE"
+            export QTVERSION="$1"
         fi
     fi
     echo "Using Qt: $QTVERSION";
