@@ -74,7 +74,7 @@ function qs
 }
 
 alias qcd='cd $QTDIR'
-qs qt-icefox
+qs qt-master
 
 _complete_qs() {
     branches=`(cd $HOME/git/;ls -d qt*/)`
