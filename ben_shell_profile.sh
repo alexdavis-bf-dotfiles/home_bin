@@ -1,3 +1,7 @@
+#
+# Customize my bash profile with various functions and alias's
+#
+
 export PATH=$PATH:$HOME/bin:$HOME/github/home_bin
 
 ## Use git completion
@@ -21,27 +25,28 @@ alias gb='git branch'
 alias gl='git log'
 function gsc { git show $1 | source-highlight --src-lang=C --out-format=esc; }
 
-alias b='(cd ..; make)'
 alias m='make'
 alias mm='make'
 alias make='time make -j2'
+alias b='(cd ..; make)'
+alias c='(cd ..; cd ..;make)'
+export MAKE_FLAGS='-j 2 --quiet'
 
 which xdg-open > /dev/null
 if [ $? -eq 0 ] ; then
 	alias open='xdg-open'
 fi
-export MAKE_FLAGS='-j 2 --quiet'
 
 
 # WebKit
-export WEBKITDIR=$HOME/dev/webkit/
+export WEBKITDIR=$HOME/git/webkit/
 export PATH=$PATH:$WEBKITDIR/WebKitTools/Scripts/
 #export DISABLE_NI_WARNING=1
 
 
 # Google Chrome junk
 #export CHROME_REVIEW_EMAIL=`rot13 vprsbk@tznvy.pbz`
-#export CHROME=$HOME/dev/chromium_real
+#export CHROME=$HOME/git/chromium_real
 #export PATH=$CHROME/chromium_tools:$CHROME/git-cl/:$CHROME/linux:$PATH
 
 
@@ -53,13 +58,13 @@ export LDSAVE="$LD_LIBRARY_PATH"
 function qs
 {
     if [ ! -z $1 ] ; then
-        if [[ ($1 == "none") || (! -d $HOME/dev/$1) ]] ; then
+        if [[ ($1 == "none") || (! -d $HOME/git/$1) ]] ; then
             export QTDIR=""
             export PATH="$PATHSAVE"
             export LD_LIBRARY_PATH="$LDSAVE"
             export QTVERSION="none"
         else
-            export QTDIR="$HOME/dev/$1"
+            export QTDIR="$HOME/git/$1"
             export PATH="$QTDIR/bin:$PATHSAVE"
             export LD_LIBRARY_PATH="$QTDIR/lib:$LDSAVE"
             export QTVERSION="$1"
@@ -72,7 +77,7 @@ alias qcd='cd $QTDIR'
 qs qt-icefox
 
 _complete_qs() {
-    branches=`(cd $HOME/dev/;ls -d qt*/)`
+    branches=`(cd $HOME/git/;ls -d qt*/)`
     cur="${COMP_WORDS[COMP_CWORD]}"
     COMPREPLY=( $(compgen -W "none ${branches}" -- ${cur}) )
 }
