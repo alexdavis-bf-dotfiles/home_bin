@@ -58,13 +58,17 @@ export LDSAVE="$LD_LIBRARY_PATH"
 function qs
 {
     if [ ! -z $1 ] ; then
-        if [[ ($1 == "none") || (! -d $HOME/git/$1) ]] ; then
+        choice=$1
+        if [[ (! -d $HOME/git/$1) && (-d $HOME/git/qt-$1) ]] ; then
+            choice="qt-$1";
+        fi
+        if [[ ($1 == "none") || (! -d $HOME/git/$choice) ]] ; then
             export QTDIR=""
             export PATH="$PATHSAVE"
             export LD_LIBRARY_PATH="$LDSAVE"
             export QTVERSION="none"
         else
-            export QTDIR="$HOME/git/$1"
+            export QTDIR="$HOME/git/$choice"
             export PATH="$QTDIR/bin:$PATHSAVE"
             export LD_LIBRARY_PATH="$QTDIR/lib:$LDSAVE"
             export QTVERSION="$1"
