@@ -30,7 +30,7 @@ alias mm='make'
 alias make='time make -j2'
 alias b='(cd ..; make)'
 alias c='(cd ..; cd ..;make)'
-export MAKE_FLAGS='-j 2 --quiet'
+export MAKE_FLAGS='-j 2'
 
 which xdg-open > /dev/null
 if [ $? -eq 0 ] ; then
