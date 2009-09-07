@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ `uname` = "Linux" ] ; then
-    ./configure -fast -no-qt3support -optimized-qmake -prefix $PWD
+    ./configure -developer-build -opensource -fast -no-qt3support -optimized-qmake -prefix $PWD
 else
-    ./configure -no-framework -fast -no-qt3support -optimized-qmake -prefix $PWD -debug-and-release
+    ./configure -no-framework -developer-build -opensource -fast -no-qt3support -optimized-qmake -prefix $PWD -debug-and-release
 fi
