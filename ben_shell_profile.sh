@@ -14,6 +14,12 @@ function rot13 {
     echo "`echo $@ | tr A-Za-z N-ZA-Mn-za-m`"
 }
 
+# teaches aspell about a word
+function learn {
+    args={"$@"}
+    echo $@ >> $HOME/.aspell.en.pws
+}
+
 alias vi='vim'
 export EDITOR=vim
 
@@ -23,6 +29,7 @@ alias gd='git diff'
 alias gs='git status'
 alias gb='git branch'
 alias gl='git log'
+alias ga='git commit --amend'
 function gsc { git show $1 | source-highlight --src-lang=C --out-format=esc; }
 
 alias m='make'
@@ -39,8 +46,9 @@ fi
 
 
 # WebKit
-export WEBKITDIR=$HOME/git/webkit/
-export PATH=$PATH:$WEBKITDIR/WebKitTools/Scripts/
+export WEBKITREPO=$HOME/git/webkit/
+#export WEBKITDIR=$WEBKITREPO
+export PATH=$PATH:$WEBKITREPO/WebKitTools/Scripts/
 #export DISABLE_NI_WARNING=1
 
 
@@ -78,7 +86,7 @@ function qs
 }
 
 alias qcd='cd $QTDIR'
-qs qt-master
+qs 4.6
 
 _complete_qs() {
     branches=`(cd $HOME/git/;ls -d qt*/)`
