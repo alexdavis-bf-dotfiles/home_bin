@@ -2,7 +2,7 @@
 # Customize my bash profile with various functions and alias's
 #
 
-export PATH=$PATH:$HOME/bin:$HOME/github/home_bin
+export PATH=$PATH:$HOME/bin:$HOME/git/home_bin
 
 ## Use git completion
 if [ -e ~/.git-completion.sh ] ; then
@@ -110,3 +110,10 @@ function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 export PS1='\u@\h \[\033[0m\]\w\[\033[0m\]$(parse_git_branch)$ '
+
+# include git achievements
+export PATH=$PATH:$HOME/git/git-achievements
+alias git='git-achievements'
+
+# include git hooks
+export PATH=$PATH:$HOME/git/git-hooks
