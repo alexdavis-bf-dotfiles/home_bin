@@ -1,0 +1,5 @@
+#!/bin/sh -x
+git push icefox master
+git push gitorious master
+git push origin master
+
