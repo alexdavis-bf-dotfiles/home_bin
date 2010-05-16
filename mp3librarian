@@ -1,0 +1,107 @@
+#!/bin/bash
+#
+#
+
+function check_album {
+	totalFound=0
+	tracknumber=0
+	totalTracks=`ls -l | wc -l`
+	for file in *.mp3 ; do 
+		let totalFound=$totalFound+1
+
+		# Make sure that there are as many track numbers as there are file's
+        # n^2, but n < 99 usually ~10 so it runs fast enough
+		for f in *.mp3 ; do 
+			tracknumber=$(getTrack "$f")
+            let tracknumber=$tracknumber+0
+            #echo "$file $tracknumber"
+            if [ "${totalFound}" = "${tracknumber}" ] ; then
+				break
+			fi
+		done
+		if [ ! "$totalFound" = "$tracknumber" ] ; then
+			echo "Can't find track $totalFound";
+			return 1
+		fi
+
+		# Make sure they all have a matching year that isn't 0	
+		trackyear=$(getYear "$file")
+        if [ "${trackyear}" != "${year}" ] ; then
+            echo "Years don't match in $file, \"$trackyear\" \"$year\""
+            return 1
+        fi
+
+		# Make sure they all have a matching genre
+        trackgenre=$(getGenre "$file")
+        if [ "${trackgenre}" != "${genre}" ] ; then
+            echo "Genre don't match in $file, $trackgenre $genre"
+            return 1
+        fi
+
+        # Check that the file name is correct        
+		track=$(getTitle "${file}")
+        if [ -z "$track" ] ; then
+          echo "Track title isn't set on $file"
+          return 1
+        fi
+        
+        #Capitalize each word
+		track=`echo $track | sed -e 's/\<[a-z]/\u&/g'`		
+		realtrackname="$artist - $track.mp3"
+		#echo "$realtrackname $file"
+        if [ "${realtrackname}" != "${file}" ] ; then
+			echo "Change tracks name: \"$file\" to \"$realtrackname\""
+		    mv -i "${file}" "${realtrackname}"
+			file=$realtrackname
+        fi
+
+        # set artist, album, comment, etc
+	    #id3tool --set-artist="${artist}" --set-album="${album}" "${file}"
+	done
+ 
+    # See if there are any junk files around that arn't mp3
+    nonmusicfiles=`ls -1 | grep -v .mp3$ | grep -v .jpg | wc -l | sed s/\[\ \]//g`
+    if [ ! ${nonmusicfiles} -eq 0 ] ; then 
+		echo "Found non music files:"
+        echo $nonmusicfiles
+        return 1
+    fi
+    return 0
+}
+
+function getArtist { exiftool "$1" | grep "^Artist[ ]*:" | sed -e 's/.*: //g' -e 's/ *$//g' | tr -d '\t'; }
+function getAlbum  { exiftool "$1" | grep "^Album[ ]*:"  | sed -e 's/.*: //g' -e 's/ *$//g' | tr -d '\t'; }
+function getYear   { exiftool "$1" | grep "^Year[ ]*:"   | sed -e 's/.*: //g' -e 's/ *$//g' | tr -d '\t'; }
+function getGenre  { exiftool "$1" | grep "^Genre[ ]*:"  | sed -e 's/.*: //g' -e 's/ *$//g' | tr -d '\t'; }
+function getTrack  { exiftool "$1" | grep "^Track[ ]*:"  | sed -e 's/.*: //g' -e 's/ *$//g' | tr -d '\t'; }
+function getTitle  { exiftool "$1" | grep "^Title[ ]*:"  | sed -e 's/.*: //g' | tr -d '\t'; }
+
+dir="$1"
+single=`ls -1 "${dir}" | grep mp3$ | tail -1`
+
+export artist=$(getArtist "${dir}/${single}")
+export album=$(getAlbum "${dir}/${single}")
+export year=$(getYear "${dir}/${single}")
+export genre=$(getGenre "${dir}/${single}")
+
+if [ -z $year ] ; then
+  echo "Year is not set"
+  exit 1
+fi
+
+echo "Artist: \"${artist}\""
+echo "Album: \"${album}\""
+echo "Year: \"${year}\""
+echo "Genre: \"${genre}\""
+
+cd "$dir"
+chmod -x *
+check_album
+if [[ $? -eq 0 && $2 == "-m" ]] ; then
+    echo "moveAlbum"
+    set -x
+    mkdir -p "$HOME/Music/mp3/$year/$artist/$album"
+    mv * "$HOME/Music/mp3/$year/$artist/$album/"
+fi
+
+#id3info "${dir}/${single}"
