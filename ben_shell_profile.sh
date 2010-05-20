@@ -2,7 +2,9 @@
 # Customize my bash profile with various functions and alias's
 #
 
-export PATH=$PATH:$HOME/bin:$HOME/git/home_bin
+export PATH=$PATH:$HOME/bin
+
+export CLICOLOR="Yes"
 
 ## Use git completion
 if [ -e ~/.git-completion.sh ] ; then
