@@ -7,3 +7,10 @@
         branch = auto
         interactive = auto
         ui = true
+
+[sendemail]
+        smtpuser = benjamin.charles.meyer
+        smtpserverport = 587
+        smtpserver = smtp.comcast.net
+        smtppass = 
+
