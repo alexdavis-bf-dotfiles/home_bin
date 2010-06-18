@@ -1,0 +1,14 @@
+!#/bin/sh
+
+ROOT=~/git/home_bin
+
+cd ~
+
+ln -s $ROOT bin
+
+for f in `ls -a $ROOt/config | grep -v '\.$'`; do
+  ln -s $ROOT/config/$f $f
+done
+
+echo "" >> ~/.bashrc
+echo "source ~/bin/ben_shell_profile.sh" >> ~/.bashrc
