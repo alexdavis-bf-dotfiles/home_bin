@@ -36,7 +36,7 @@ function gsc { git show $1 | source-highlight --src-lang=C --out-format=esc; }
 
 alias m='make'
 alias mm='make'
-alias make='echo "`date` $PWD >> ~/Documents/.buildlog; time make -j2'
+alias make='echo "`date` $PWD" >> ~/Documents/.buildlog; time make -j2'
 alias b='(cd ..; make)'
 alias c='(cd ..; cd ..;make)'
 export MAKE_FLAGS='-j 2'
