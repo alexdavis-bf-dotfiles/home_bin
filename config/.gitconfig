@@ -14,3 +14,5 @@
         smtpserver = smtp.comcast.net
         smtppass = 
 
+[hooks]
+	global = ~/git/git-hooks/contrib/
